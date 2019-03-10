@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         target = GameObject.Find("Player");
-        // target = GameObject.FindGameObjectWithTag("Player");
+        // target = GameObject.FindGameObjectWithTag("Player");  // Another option
 
         thisRigidbody = GetComponent<Rigidbody2D>();
 
@@ -41,15 +41,9 @@ public class Enemy : MonoBehaviour
         xdiff = targetPos.x - thisPos.x;
         ydiff = targetPos.y - thisPos.y;
 
-        //diffText.text = "X diff = " + xdiff + "    ydiff = " + ydiff + "\nDistance = " + GetDistance(target.transform);
-
         float distance = GetDistance(target.transform);
-
-        //if (Mathf.Abs(xdiff) < DIST_THRESHHOLD && Mathf.Abs(ydiff) < DIST_THRESHHOLD)
         if (distance < DIST_THRESHHOLD)
         {
-            //transform.Translate(new Vector2(xdiff, ydiff) * SPEED);
-
             xdiff = 0;
             ydiff = 0;
         }
