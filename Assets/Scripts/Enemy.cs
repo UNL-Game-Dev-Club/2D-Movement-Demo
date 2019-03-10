@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class Enemy : MonoBehaviour
     float ydiff; // for 3D, use zdiff
 
     const float SPEED = 3f;
-    const float DIST_THRESHHOLD = 0.5f;
+    const float DIST_THRESHHOLD = 0.8f;
 
     // Debug Only
     Text diffText;
@@ -40,15 +41,12 @@ public class Enemy : MonoBehaviour
         xdiff = targetPos.x - thisPos.x;
         ydiff = targetPos.y - thisPos.y;
 
-        diffText.text = "X diff = " + xdiff + "    ydiff = " + ydiff;
+        //diffText.text = "X diff = " + xdiff + "    ydiff = " + ydiff + "\nDistance = " + GetDistance(target.transform);
 
-        /*if (Mathf.Abs(xdiff) > DIST_THRESHHOLD || Mathf.Abs(ydiff) > DIST_THRESHHOLD)
-        {
-            //transform.Translate(new Vector2(xdiff, ydiff) * SPEED);
-            
+        float distance = GetDistance(target.transform);
 
-        }*/
-        if (Mathf.Abs(xdiff) < DIST_THRESHHOLD && Mathf.Abs(ydiff) < DIST_THRESHHOLD)
+        //if (Mathf.Abs(xdiff) < DIST_THRESHHOLD && Mathf.Abs(ydiff) < DIST_THRESHHOLD)
+        if (distance < DIST_THRESHHOLD)
         {
             //transform.Translate(new Vector2(xdiff, ydiff) * SPEED);
 
@@ -60,5 +58,23 @@ public class Enemy : MonoBehaviour
         direction.Normalize();
 
         thisRigidbody.velocity = direction * SPEED;
+    }
+
+    float GetDistance(Transform other)
+    {
+        Vector2 thisPos = transform.position;
+        Vector2 otherPos = other.position;
+
+        float xdiff = Mathf.Abs(otherPos.x - thisPos.x);
+        float xsquared = Mathf.Pow(xdiff, 2);
+
+        float ydiff = Mathf.Abs(otherPos.y - thisPos.y);
+        float ysquared = Mathf.Pow(ydiff, 2);
+
+        float distance = Mathf.Sqrt(xdiff + ydiff);
+
+        diffText.text = "X diff = " + xdiff.ToString("0.00") + "    X squared = " + xsquared.ToString("0.00") + "\nY diff = " + ydiff.ToString("0.00") + "    Y squared = " + ysquared.ToString("0.00") + "\nDistance = " + distance;
+
+        return distance;
     }
 }

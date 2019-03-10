@@ -6,11 +6,13 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D thisRigidbody;
     const float SPEED = 8f;
+    float speedModifier;
 
     // Start is called before the first frame update
     void Start()
     {
         thisRigidbody = GetComponent<Rigidbody2D>();
+        speedModifier = 1f;
     }
 
     // Update is called once per frame
@@ -20,8 +22,16 @@ public class Player : MonoBehaviour
         float yMovement = Input.GetAxis("Vertical");
 
         Debug.Log(xMovement + " " + yMovement);
-
-        float speedModifier = 1;
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speedModifier = 3f;
+        }
+        
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speedModifier = 1f;
+        }
 
         // Move
         thisRigidbody.velocity = new Vector2(xMovement * SPEED * speedModifier, yMovement * SPEED * speedModifier);
