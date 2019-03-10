@@ -16,6 +16,7 @@ public class DebugReset : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Slash))
         {
             GameObject.Find("Player").transform.position = Vector3.zero;
+            GameObject.Find("Enemy").transform.position = new Vector3(0, 10, 0);
         }
     }
 }
