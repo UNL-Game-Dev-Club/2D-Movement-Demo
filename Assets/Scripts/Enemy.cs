@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
         float ydiff = Mathf.Abs(otherPos.y - thisPos.y);
         float ysquared = Mathf.Pow(ydiff, 2);
 
-        float distance = Mathf.Sqrt(xdiff + ydiff);
+        float distance = Mathf.Sqrt(xsquared + ysquared);
 
         diffText.text = "X diff = " + xdiff.ToString("0.00") + "    X squared = " + xsquared.ToString("0.00") + "\nY diff = " + ydiff.ToString("0.00") + "    Y squared = " + ysquared.ToString("0.00") + "\nDistance = " + distance;
 
